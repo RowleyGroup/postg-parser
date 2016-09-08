@@ -2,7 +2,7 @@
 import sys
 from os import path
 sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-from src.parsers import coefficients_parser
+from postg_parser.parsers import coefficients_parser
 
 coefficients_part_for_acetilen = (
     '  1   1  0.000000E+00  2.678809217E+01  9.052548035E+02  2.947495885E+04  5.759574E+00  6.425197E+00\n'
