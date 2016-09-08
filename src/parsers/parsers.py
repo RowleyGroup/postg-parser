@@ -9,6 +9,7 @@ def coefficients_parser(input):
 
     for line in lines:
         matches = search(coefficients_pattern, line).groups()
-        result.append(matches)
+        numbers = map(lambda x: float(x) if '.' in x else int(x), matches)
+        result.append(numbers)
 
     return result
