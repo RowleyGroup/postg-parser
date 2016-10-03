@@ -2,24 +2,28 @@ from re import search
 from patterns import *
 from openbabel import OBMol, OBElementTable
 from pybel import Molecule
+from numpy import matrix, zeros
+from math import sqrt
+from ..coefficients import Coefficients
 
 
 def coefficients_parser(input):
     """
     :param input: The input string
     :type input: str
-    :rtype: list
+    :rtype: matrix
     """
     lines = input.split('\n')
+    number_of_atoms = int(sqrt(1 + 8 * len(lines)) - 1) / 2
 
-    result = []
+    c6 = matrix(zeros(shape=(number_of_atoms, number_of_atoms)))
 
     for line in lines:
         matches = search(coefficients_pattern, line).groups()
         numbers = map(lambda x: float(x) if '.' in x else int(x), matches)
-        result.append(numbers)
+        c6.itemset((numbers[0] - 1, numbers[1] - 1), numbers[3])
 
-    return result
+    return Coefficients(c6=c6)
 
 
 def atoms_positions_parser(input):
