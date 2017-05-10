@@ -7,6 +7,14 @@ from math import sqrt
 from ..coefficients import Coefficients
 
 
+def item_set(matrix, position, value):
+    i, j = position
+    matrix.itemset((i, j), value)
+
+    if i != j:
+        matrix.itemset((j, i), value)
+
+
 def coefficients_parser(input):
     """
     :param input: The input string
@@ -24,10 +32,13 @@ def coefficients_parser(input):
     for line in lines:
         matches = search(coefficients_pattern, line).groups()
         numbers = map(lambda x: float(x) if '.' in x else int(x), matches)
-        c6.itemset((numbers[0] - 1, numbers[1] - 1), numbers[3])
-        c8.itemset((numbers[0] - 1, numbers[1] - 1), numbers[4])
-        c10.itemset((numbers[0] - 1, numbers[1] - 1), numbers[5])
-        rvdw.itemset((numbers[0] - 1, numbers[1] - 1), numbers[7])
+        i = numbers[0] - 1
+        j = numbers[1] - 1
+
+        item_set(c6, [i, j], numbers[3])
+        item_set(c8, [i, j], numbers[4])
+        item_set(c10, [i, j], numbers[5])
+        item_set(rvdw, [i, j], numbers[7])
 
     return Coefficients(c6=c6, c8=c8, c10=c10, rvdw=rvdw)
 
