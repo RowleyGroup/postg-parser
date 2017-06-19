@@ -1,5 +1,5 @@
 from re import search
-from patterns import *
+from .patterns import *
 from openbabel import OBMol, OBElementTable
 from pybel import Molecule
 from numpy import matrix, zeros
@@ -22,7 +22,7 @@ def coefficients_parser(input):
     :rtype: matrix
     """
     lines = input.split('\n')
-    number_of_atoms = int(sqrt(1 + 8 * len(lines)) - 1) / 2
+    number_of_atoms = int(int(sqrt(1 + 8 * len(lines)) - 1) / 2)
 
     c6 = matrix(zeros(shape=(number_of_atoms, number_of_atoms)))
     c8 = matrix(zeros(shape=(number_of_atoms, number_of_atoms)))
@@ -31,7 +31,7 @@ def coefficients_parser(input):
 
     for line in lines:
         matches = search(coefficients_pattern, line).groups()
-        numbers = map(lambda x: float(x) if '.' in x else int(x), matches)
+        numbers = list(map(lambda x: float(x) if '.' in x else int(x), matches))
         i = numbers[0] - 1
         j = numbers[1] - 1
 

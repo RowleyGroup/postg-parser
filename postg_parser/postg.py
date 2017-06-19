@@ -1,4 +1,4 @@
-import parsers.parsers
+from .parsers import parsers
 
 atoms_part_header = '# n  At           x               y               z         nr    nl\n'
 coefficients_part_header = '# i  j       dij            C6               C8               C10              Rc           Rvdw\n'

@@ -1,1 +1,1 @@
-from parsers import coefficients_parser, atoms_positions_parser
+from .parsers import coefficients_parser, atoms_positions_parser
